@@ -7,21 +7,43 @@ namespace Vigenere_Cipher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("-=-=- Vigere Cipher -=-=-");
-            Console.Write("Insira o texto simples: ");
-            string str = Console.ReadLine();
-            Console.Write("Insira a palavra-chave: ");
-            string keyword = Console.ReadLine();
+            menu();
+            static void menu()
+            {
+                string key = "";
+                string cipher_text = "";
+                Console.WriteLine("-=-=- Vigere Cipher -=-=-");
+                Console.Write("Insira o texto simples: ");
+                string str = Console.ReadLine();
+                Console.Write("Insira a palavra-chave: ");
+                string keyword = Console.ReadLine();
 
-            String key = GFG.generateKey(str.ToUpper(), keyword.ToUpper());
-            String cipher_text = GFG.cipherText(str.ToUpper(), key.ToUpper());
+                Console.WriteLine("[1] - Criptografar");
+                Console.WriteLine("[2] - Descriptografar");
+                int opc = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Ciphertext : "
-                + cipher_text + "\n");
+                switch (opc)
+                {
+                    case 1:
+                        key = GFG.generateKey(str.ToUpper(), keyword.ToUpper());
+                        cipher_text = GFG.cipherText(str.ToUpper(), key.ToUpper());
 
-
-            Console.WriteLine("Original/Decrypted Text : "
-                + GFG.originalText(cipher_text, key));
+                        Console.WriteLine("Ciphertext : "
+                            + cipher_text + "\n");
+                        break;
+                    case 2:
+                        if (cipher_text == "")
+                        {
+                            Console.WriteLine("[x] - Nenhum texto foi criptografado ainda.");
+                            Console.ReadKey();
+                            Console.Clear();
+                            menu();
+                        }
+                        Console.WriteLine("Original/Decrypted Text : "
+                            + GFG.originalText(cipher_text, key));
+                        break;
+                }
+            }
         }
     }
 }
